@@ -1,10 +1,16 @@
 const express = require('express');
 const users = require("./users");
 const { body, validationResult } = require("express-validator");
+const helmet = require ("helmet");
+const config = require ("config");
+
 
 const app = express();
+// console.log (config.get('time'));
 
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+app.use(helmet());
 
 app.get('/api/users', (req, res) => {
   res.json(users);

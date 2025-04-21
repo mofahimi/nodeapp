@@ -2,6 +2,7 @@ const express = require('express');
 const helmet = require("helmet");
 const config = require("config");
 const userRouter = require("./router/user");
+const mongoose = require("mongoose");
 
 
 const app = express();
@@ -10,6 +11,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
+
+mongoose
+  .connect("mongodb://127.0.0.1:27017/vidly")
+  .then(() => console.log("connected to mongodb..."))
+  .catch((err) => console.error("could not connect to mongodb..."));
 
 
 app.use("/api/users", userRouter )
